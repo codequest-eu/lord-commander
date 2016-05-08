@@ -76,3 +76,9 @@ func TestDiscardStderr(t *testing.T) {
 	assert.Error(t, err)
 	assert.Nil(t, commander.Stderr())
 }
+
+func TestReuse(t *testing.T) {
+	commander := New()
+	assert.NoError(t, commander.Run("echo", "bacon"))
+	assert.Equal(t, ErrAlreadyUsed, commander.Run("echo", "bacon"))
+}
